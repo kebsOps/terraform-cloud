@@ -19,7 +19,7 @@ environment = "production"
 # ami = "ami-0f0f1c02e5e4d9d9f"
 
 
-keypair = "devops"
+keypair = "devopspl"
 
 # Ensure to change this to your acccount number
 account_no = "649152850206"
