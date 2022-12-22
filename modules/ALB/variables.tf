@@ -12,6 +12,17 @@ variable "public-sbn-2" {
   description = "Public subnets to deploy external ALB"
 }
 
+variable "private-sg" {
+  description = "Security group for Internal Load Balance"
+}
+
+variable "private-sbn-1" {
+  description = "Private subnets to deploy Internal ALB"
+}
+variable "private-sbn-2" {
+  description = "Private subnets to deploy Internal ALB"
+}
+
 variable "vpc_id" {
   type = string
   description = "The VPC ID"
