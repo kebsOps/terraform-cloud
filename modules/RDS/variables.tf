@@ -10,12 +10,6 @@ variable "db-password" {
   description = "Master password"
 }
 
-variable "name" {
-  type        = string
-  description = "The db name"
-}
-
-
 variable "db-sg" {
   type = list
   description = "The DB security group"
