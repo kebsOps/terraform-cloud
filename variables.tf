@@ -97,3 +97,7 @@ variable "db-password" {
   description = "RDS master password"
 }
 
+variable "security" {
+    type = string
+  
+}
