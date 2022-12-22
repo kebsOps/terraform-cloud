@@ -78,15 +78,15 @@ module "Security" {
 
 module "AutoScaling" {
   source            = "./modules/Autoscaling"
-  ami-web           = var.ami
-  ami-bastion       = var.ami
-  ami-nginx         = var.ami
+  ami-web           = var.ami-web
+  ami-bastion       = var.ami-bastion
+  ami-nginx         = var.ami-nginx
   desired_capacity  = 2
   min_size          = 2
   max_size          = 2
-  web-sg            = [module.security.web-sg]
-  bastion-sg        = [module.security.bastion-sg]
-  nginx-sg          = [module.security.nginx-sg]
+  web-sg            = [module.Security.web-sg]
+  bastion-sg        = [module.Security.bastion-sg]
+  nginx-sg          = [module.Security.nginx-sg]
   wordpress-alb-tgt = module.ALB.wordpress-tgt
   nginx-alb-tgt     = module.ALB.nginx-tgt
   tooling-alb-tgt   = module.ALB.tooling-tgt
@@ -104,7 +104,7 @@ module "EFS" {
   source       = "./modules/EFS"
   efs-subnet-1 = module.VPC.private_subnets-1
   efs-subnet-2 = module.VPC.private_subnets-2
-  efs-sg       = [module.security.datalayer-sg]
+  efs-sg       = [module.Security.datalayer-sg]
   account_no   = var.account_no
 }
 
@@ -114,17 +114,17 @@ module "RDS" {
   source          = "./modules/RDS"
   db-password     = var.db-password
   db-username     = var.db-username
-  db-sg           = [module.security.datalayer-sg]
+  db-sg           = [module.Security.datalayer-sg]
   private_subnets = [module.VPC.private_subnets-3, module.VPC.private_subnets-4]
 }
 
 # The Module creates instances for jenkins, sonarqube abd jfrog
 module "compute" {
   source          = "./modules/Compute"
-  ami-jenkins     = var.ami
-  ami-sonar       = var.ami
-  ami-jfrog       = var.ami
+  ami-jenkins     = var.ami-bastion
+  ami-sonar       = var.ami-sonar
+  ami-jfrog       = var.ami-bastion
   subnets-compute = module.VPC.public_subnets-1
-  sg-compute      = [module.security.ALB-sg]
+  sg-compute      = [module.Security.compute-sg]
   keypair         = var.keypair
 }
