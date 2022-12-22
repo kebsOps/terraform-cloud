@@ -1,11 +1,11 @@
 
-variable "master-username" {
+variable "db-username" {
   type        = string
   description = "The master username"
 }
 
 
-variable "master-password" {
+variable "db-password" {
   type        = string
   description = "Master password"
 }
@@ -17,7 +17,7 @@ variable "db-sg" {
 
 variable "private_subnets" {
   type        = list
-  description = "Private subnets fro DB subnets group"
+  description = "Private subnets from DB subnets group"
 }
 
 

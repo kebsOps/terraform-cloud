@@ -24,9 +24,9 @@ keypair = "devops"
 # Ensure to change this to your acccount number
 account_no = "649152850206"
 
-master-username = "Kebsadmin"
+db-username = "Kebsadmin"
 
-master-password = "admin12345"
+db-password = "admin12345"
 
 ami-web = "ami-08dcc1440590870b1"
 
