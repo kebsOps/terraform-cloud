@@ -112,7 +112,7 @@ module "EFS" {
 
 module "RDS" {
   source          = "./modules/RDS"
-  db-name =       = var.db-name
+  db-name         = var.db-name
   db-password     = var.db-password
   db-username     = var.db-username
   db-sg           = [module.Security.datalayer-sg]
