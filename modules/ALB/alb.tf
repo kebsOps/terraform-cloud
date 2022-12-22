@@ -1,10 +1,11 @@
-# External Load balancer for reverse proxy ngnix
+# ----------------------------
+#External Load balancer for reverse proxy nginx
+#---------------------------------
 
 resource "aws_lb" "ext-alb" {
-  name     = var.name
-  internal = false
-  security_groups = [var.public.sg]
- 
+  name            = var.name
+  internal        = false
+  security_groups = [var.public-sg]
 
   subnets = [var.public-sbn-1,
   var.public-sbn-2, ]
@@ -20,8 +21,7 @@ resource "aws_lb" "ext-alb" {
   load_balancer_type = var.load_balancer_type
 }
 
-
-# Inform our ALB to where route the traffic we need to create a Target Group to point to it's targets
+#--- create a target group for the external load balancer
 resource "aws_lb_target_group" "nginx-tgt" {
   health_check {
     interval            = 10
@@ -31,19 +31,20 @@ resource "aws_lb_target_group" "nginx-tgt" {
     healthy_threshold   = 5
     unhealthy_threshold = 2
   }
-  name        = "ngnix-tgt"
+  name        = "nginx-tgt"
   port        = 443
   protocol    = "HTTPS"
   target_type = "instance"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 }
 
-# create a Listener for this target Group
-resource "aws_lb_listener" "nginx-listener" {
+#--- create a listener for the load balancer
+
+resource "aws_lb_listener" "nginx-listner" {
   load_balancer_arn = aws_lb.ext-alb.arn
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn   = aws_acm_certificate_validation.toolingkb.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.project_19_validation.certificate_arn
 
   default_action {
     type             = "forward"
@@ -51,19 +52,22 @@ resource "aws_lb_listener" "nginx-listener" {
   }
 }
 
-# -------------------------------------
+
+
+# ----------------------------
 #Internal Load Balancers for webservers
-#--------------------------------------
+#---------------------------------
 
 resource "aws_lb" "ialb" {
   name     = "ialb"
   internal = true
+
   security_groups = [var.private-sg]
 
-  subnets = [ var.private-sbn-1,
+  subnets = [var.private-sbn-1,
   var.private-sbn-2, ]
 
-  tags = merge(
+    tags = merge(
     var.tags,
     {
       Name = "ACS-int-alb"
@@ -74,7 +78,9 @@ resource "aws_lb" "ialb" {
   load_balancer_type = var.load_balancer_type
 }
 
+
 # --- target group  for wordpress -------
+
 resource "aws_lb_target_group" "wordpress-tgt" {
   health_check {
     interval            = 10
@@ -85,14 +91,18 @@ resource "aws_lb_target_group" "wordpress-tgt" {
     unhealthy_threshold = 2
   }
 
-  name        = "wordpress-tgt"
-  port        = 443
+  name     = "wordpress-tgt"
+   port        = 443
   protocol    = "HTTPS"
   target_type = "instance"
-  vpc_id      = aws_vpc.main.id
-}
+  vpc_id      = var.vpc_id
+  }
+
+
+
 
 # --- target group for tooling -------
+
 resource "aws_lb_target_group" "tooling-tgt" {
   health_check {
     interval            = 10
@@ -107,16 +117,19 @@ resource "aws_lb_target_group" "tooling-tgt" {
   port        = 443
   protocol    = "HTTPS"
   target_type = "instance"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 }
 
 # For this aspect a single listener was created for the wordpress which is default,
 # A rule was created to route traffic to tooling when the host header changes
+
+
 resource "aws_lb_listener" "web-listener" {
   load_balancer_arn = aws_lb.ialb.arn
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn   = aws_acm_certificate_validation.toolingkb.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.project_19_validation.certificate_arn
+
 
   default_action {
     type             = "forward"
@@ -124,7 +137,8 @@ resource "aws_lb_listener" "web-listener" {
   }
 }
 
-# listener rule for tooling target
+# # listener rule for tooling target
+
 resource "aws_lb_listener_rule" "tooling-listener" {
   listener_arn = aws_lb_listener.web-listener.arn
   priority     = 99
@@ -136,7 +150,7 @@ resource "aws_lb_listener_rule" "tooling-listener" {
 
   condition {
     host_header {
-      values = ["tooling.toolingkb.xyz"]
+      values = ["tooling.david.toolingabby.com"]
     }
   }
 }
