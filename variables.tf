@@ -96,8 +96,3 @@ variable "db-password" {
   type        = string
   description = "RDS master password"
 }
-
-variable "security" {
-    type = string
-  
-}
