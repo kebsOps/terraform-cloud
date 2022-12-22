@@ -10,7 +10,7 @@ variable "db-password" {
   description = "Master password"
 }
 
-variable "db-name" {
+variable "name" {
   type        = string
   description = "The db name"
 }

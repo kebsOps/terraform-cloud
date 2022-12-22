@@ -97,8 +97,3 @@ variable "db-password" {
   description = "RDS master password"
 }
 
-
-variable "db-name" {
-  type        = string
-  description = "The db name"
-}
