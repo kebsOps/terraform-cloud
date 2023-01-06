@@ -30,11 +30,11 @@ db-password = "admin12345"
 
 ami-web = "ami-08dcc1440590870b1"
 
-ami-bastion = "ami-09100bc998ef1657b"
+ami-bastion = "ami-01dfb24743affc0fc"
 
-ami-nginx = "ami-0a7427c834025fe2a"
+ami-nginx = "ami-01dfb24743affc0fc"
 
-ami-ubuntu = "ami-03ffd702d390c3cc4"
+ami-ubuntu = "ami-0e2ec7f308181d35b"
 
 ami-sonar = "ami-0f8bd95a744e074b8"
 

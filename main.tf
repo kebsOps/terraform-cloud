@@ -1,6 +1,6 @@
-#############################
+################################
 ##creating bucket for s3 backend
-#############################
+################################
 
 # Note: The bucket name may not work for you since buckets are unique globally in AWS, so you must give it a unique name.
 resource "aws_s3_bucket" "terraform_state" {
