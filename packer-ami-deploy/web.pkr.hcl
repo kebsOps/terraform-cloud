@@ -20,7 +20,7 @@ source "amazon-ebs" "terraform-web-project-19" {
       virtualization-type = "hvm"
     }
     most_recent = true
-    owners      = ["649152850206"]
+    owners      = ["309956199498"]
   }
   ssh_username = "ec2-user"
   tag {
