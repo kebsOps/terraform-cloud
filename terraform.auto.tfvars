@@ -36,7 +36,7 @@ ami-nginx = "ami-01dfb24743affc0fc"
 
 ami-ubuntu = "ami-0e2ec7f308181d35b"
 
-ami-sonar = "ami-0f8bd95a744e074b8"
+ami-sonar = "ami-03a37617c01fd8c52"
 
 tags = {
   Enviroment      = "production"
