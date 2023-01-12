@@ -20,6 +20,7 @@ source ~/.bash_profile
 # git clone https://github.com/darey-devops/PBL-project-19.git
 
 
+
 # install botocore, ansible and awscli
 sudo python3 -m pip install boto
 sudo python3 -m pip install boto3
