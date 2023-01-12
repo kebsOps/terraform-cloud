@@ -39,7 +39,7 @@ resource "aws_lb_target_group" "nginx-tgt" {
 }
 
 #--- create a listener for the load balancer
-/*
+
 resource "aws_lb_listener" "nginx-listener" {
   load_balancer_arn = aws_lb.ext-alb.arn
   port              = 443
@@ -51,7 +51,7 @@ resource "aws_lb_listener" "nginx-listener" {
     target_group_arn = aws_lb_target_group.nginx-tgt.arn
   }
 }
-*/
+
 
 # ----------------------------
 #Internal Load Balancers for webservers

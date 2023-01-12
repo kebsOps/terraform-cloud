@@ -3,6 +3,8 @@ variable "region" {
   default = "eu-west-1"
 }
 
+
+
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
