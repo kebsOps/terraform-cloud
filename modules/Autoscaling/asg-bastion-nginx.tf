@@ -4,13 +4,14 @@ data "aws_availability_zones" "available" {
 }
 
 
-### creating sns topic for all the autoscaling groups
-resource "aws_sns_topic" "kebs-sns" {
+# creating sns topic for all the auto scaling groups
+resource "aws_sns_topic" "ACS-sns" {
   name = "Default_CloudWatch_Alarms_Topic"
 }
 
-# creating notification for all the autoscaling groups
-resource "aws_autoscaling_notification" "kebs_notifications" {
+
+# creating notification for all the auto scaling groups
+resource "aws_autoscaling_notification" "david_notifications" {
   group_names = [
     aws_autoscaling_group.bastion-asg.name,
     aws_autoscaling_group.nginx-asg.name,
@@ -24,8 +25,9 @@ resource "aws_autoscaling_notification" "kebs_notifications" {
     "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
   ]
 
-  topic_arn = aws_sns_topic.kebs-sns.arn
+  topic_arn = aws_sns_topic.ACS-sns.arn
 }
+
 
 resource "random_shuffle" "az_list" {
   input = data.aws_availability_zones.available.names
@@ -62,7 +64,7 @@ resource "aws_autoscaling_group" "bastion-asg" {
 
 
 
-# ------ Autoscaling group for reverse proxy nginx ---------
+# ------ Autoscslaling group for reverse proxy nginx ---------
 
 resource "aws_autoscaling_group" "nginx-asg" {
   name                      = "nginx-asg"
@@ -89,8 +91,9 @@ resource "aws_autoscaling_group" "nginx-asg" {
 
 }
 
-#attaching autoscaling group of nginx to external load balancer
+ # attaching autoscaling group of nginx to external load balancer
 resource "aws_autoscaling_attachment" "asg_attachment_nginx" {
   autoscaling_group_name = aws_autoscaling_group.nginx-asg.id
   alb_target_group_arn   = var.nginx-alb-tgt
 }
+
