@@ -72,5 +72,3 @@ resource "aws_launch_template" "tooling-launch-template" {
 }
 
 
-
-

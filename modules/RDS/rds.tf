@@ -6,7 +6,7 @@ resource "aws_db_subnet_group" "ACS-rds" {
   tags = merge(
     var.tags,
     {
-      Name = "ACS-rds"
+      Name = "ACS-database"
     },
   )
 }
@@ -17,7 +17,7 @@ resource "aws_db_instance" "ACS-rds" {
   storage_type           = "gp2"
   engine                 = "mysql"
   engine_version         = "5.7"
-  instance_class         = "db.t3.micro"
+  instance_class         = "db.t2.micro"
   db_name                = "kebsdb"
   username               = var.db-username
   password               = var.db-password
