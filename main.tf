@@ -4,7 +4,7 @@
 
 # Note: The bucket name may not work for you since buckets are unique globally in AWS, so you must give it a unique name.
 resource "aws_s3_bucket" "terraform_state" {
-  bucket        = "kebe-dev-terraform-bucket"
+  bucket        = "kebs-dev-terraform-bucket"
   force_destroy = true
 }
 
