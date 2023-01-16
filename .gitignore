@@ -1,5 +1,6 @@
 .terraform
 *.tfstate
+*.pem
 .DS_Store
         .gitignore
         .terraform.lock.hcl
